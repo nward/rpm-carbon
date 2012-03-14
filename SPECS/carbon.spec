@@ -8,20 +8,22 @@ Source2:    carbon-relay.init
 Source3:    carbon-aggregator.init
 Patch0:     %{name}-0.9.9-fhs-compliance.patch
 License:    Apache Software License 2.0
-Group:      Development/Libraries
+Group:      System Environment/Daemons
 Prefix:     %{_prefix}
 BuildArch:  noarch
 URL:        https://launchpad.net/graphite
+Requires:   whisper >= %{version}
 Requires:   python-twisted
 Requires:   python-txamqp
 Requires:   python-zope-interface
 Obsoletes:  python-carbon
 
 %description
-UNKNOWN
+Carbon is the backend storage application of the graphite framework,
+providing data collection, caching and persistence services.
 
 %prep
-%setup -n %{name}-%{version}
+%setup
 %patch0 -p1
 
 %build
@@ -49,7 +51,7 @@ rm -rf %{buildroot}
 getent group graphite >/dev/null || groupadd -r graphite
 getent passwd graphite >/dev/null || \
     useradd -r -g graphite -d '/etc/graphite' -s /sbin/nologin \
-    -c "Graphite Service User" uwsgi
+    -c "Graphite Service User" graphite
 
 %post
 for svc in carbon-{aggregator,cache,relay}; do
@@ -73,7 +75,7 @@ fi
 
 %files
 %defattr(-,root,root)
-%dir %attr(0755,graphite,graphite) %{_sysconfdir}/graphite
+%dir %{_sysconfdir}/graphite
 %{_initrddir}/carbon-aggregator
 %{_initrddir}/carbon-cache
 %{_initrddir}/carbon-relay
@@ -83,7 +85,7 @@ fi
 %{_prefix}/bin/carbon-client.py
 %{_prefix}/bin/carbon-relay.py
 %{_prefix}/bin/validate-storage-schemas.py
-%{python_sitelib}/%{name}-%{version}-py%{pyver}.egg-info
+%{python_sitelib}/%{name}-%{version}-py%{python_version}.egg-info
 %{python_sitelib}/%{name}/*.py
 %{python_sitelib}/%{name}/*.pyc
 %{python_sitelib}/%{name}/*.pyo
