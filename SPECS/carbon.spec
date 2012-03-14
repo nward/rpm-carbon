@@ -9,7 +9,6 @@ Source3:    carbon-aggregator.init
 Patch0:     %{name}-0.9.9-fhs-compliance.patch
 License:    Apache Software License 2.0
 Group:      System Environment/Daemons
-Prefix:     %{_prefix}
 BuildArch:  noarch
 URL:        https://launchpad.net/graphite
 Requires:   whisper >= %{version}
@@ -37,7 +36,7 @@ install -d -m 0755 %{buildroot}%{_initrddir}
 install -d -m 0755 %{buildroot}%{_localstatedir}/log/graphite/carbon-cache
 install -d -m 0755 %{buildroot}%{_localstatedir}/run/graphite
 
-mv %{buildroot}%{_prefix}/conf %{buildroot}%{_sysconfdir}/graphite
+mv %{buildroot}/usr/conf %{buildroot}%{_sysconfdir}/graphite
 install -m 0755 %{SOURCE1} %{buildroot}%{_initrddir}/carbon-cache
 install -m 0755 %{SOURCE2} %{buildroot}%{_initrddir}/carbon-relay
 install -m 0755 %{SOURCE3} %{buildroot}%{_initrddir}/carbon-aggregator
@@ -80,11 +79,11 @@ fi
 %{_initrddir}/carbon-cache
 %{_initrddir}/carbon-relay
 %{_sysconfdir}/graphite/*.example
-%{_prefix}/bin/carbon-aggregator.py
-%{_prefix}/bin/carbon-cache.py
-%{_prefix}/bin/carbon-client.py
-%{_prefix}/bin/carbon-relay.py
-%{_prefix}/bin/validate-storage-schemas.py
+%{_bindir}/carbon-aggregator.py
+%{_bindir}/carbon-cache.py
+%{_bindir}/carbon-client.py
+%{_bindir}/carbon-relay.py
+%{_bindir}/validate-storage-schemas.py
 %{python_sitelib}/%{name}-%{version}-py%{python_version}.egg-info
 %{python_sitelib}/%{name}/*.py
 %{python_sitelib}/%{name}/*.pyc
