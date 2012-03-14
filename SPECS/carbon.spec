@@ -12,6 +12,8 @@ Source0:    %{name}-%{version}.tar.gz
 Source1:    carbon-cache.init
 Source2:    carbon-relay.init
 Source3:    carbon-aggregator.init
+Source4:    carbon.conf
+Source5:    carbon-storage-schemas.conf
 Patch0:     %{name}-0.9.9-fhs-compliance.patch
 License:    Apache Software License 2.0
 Group:      System Environment/Daemons
@@ -39,10 +41,14 @@ providing data collection, caching and persistence services.
 
 install -d -m 0755 %{buildroot}%{_sysconfdir}
 install -d -m 0755 %{buildroot}%{_initrddir}
+install -d -m 0755 %{buildroot}%{_localstatedir}/lib/carbon
 install -d -m 0755 %{buildroot}%{_localstatedir}/log/graphite/carbon-cache
 install -d -m 0755 %{buildroot}%{_localstatedir}/run/graphite
 
 mv %{buildroot}/usr/conf %{buildroot}%{_sysconfdir}/graphite
+install -m 0644 %{SOURCE4} %{buildroot}%{_sysconfdir}/graphite/carbon.conf
+install -m 0644 %{SOURCE5} %{buildroot}%{_sysconfdir}/graphite/storage-schemas.conf
+
 install -m 0755 %{SOURCE1} %{buildroot}%{_initrddir}/carbon-cache
 install -m 0755 %{SOURCE2} %{buildroot}%{_initrddir}/carbon-relay
 install -m 0755 %{SOURCE3} %{buildroot}%{_initrddir}/carbon-aggregator
@@ -84,6 +90,7 @@ fi
 %{_initrddir}/carbon-aggregator
 %{_initrddir}/carbon-cache
 %{_initrddir}/carbon-relay
+%config(noreplace) %{_sysconfdir}/graphite/*.conf
 %{_sysconfdir}/graphite/*.example
 %{_bindir}/carbon-aggregator.py
 %{_bindir}/carbon-cache.py
@@ -100,6 +107,7 @@ fi
 %{python_sitelib}/%{name}/aggregator/*.py
 %{python_sitelib}/%{name}/aggregator/*.pyc
 %{python_sitelib}/%{name}/aggregator/*.pyo
+%attr(0755,graphite,graphite) %{_localstatedir}/lib/carbon
 %attr(0755,graphite,graphite) %{_localstatedir}/log/graphite
 %attr(0755,graphite,graphite) %{_localstatedir}/log/graphite/carbon-cache
 %attr(0755,graphite,graphite) %{_localstatedir}/run/graphite
