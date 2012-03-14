@@ -1,3 +1,9 @@
+%if %rhel < 6
+%define python_sitelib  %(%{__python} -c "from distutils.sysconfig import get_python_lib; import sys; sys.stdout.write(get_python_lib())")
+%define python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; import sys; sys.stdout.write(get_python_lib(1))")
+%define python_version  %(%{__python} -c "import sys; sys.stdout.write(sys.version[:3])")
+%endif
+
 Summary:    Backend data caching and persistence daemon for Graphite
 Name:       carbon
 Version:    0.9.9
@@ -84,7 +90,9 @@ fi
 %{_bindir}/carbon-client.py
 %{_bindir}/carbon-relay.py
 %{_bindir}/validate-storage-schemas.py
+%if %rhel >= 6
 %{python_sitelib}/%{name}-%{version}-py%{python_version}.egg-info
+%endif
 %{python_sitelib}/%{name}/*.py
 %{python_sitelib}/%{name}/*.pyc
 %{python_sitelib}/%{name}/*.pyo
