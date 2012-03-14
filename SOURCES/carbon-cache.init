@@ -1,13 +1,12 @@
 #!/bin/bash
-#!/bin/bash
 #
-# uwsgi - This script starts and stops all configured uwsgi applications
+# carbon-cache - This script starts and stops the carbon-cache service.
 #
 # chkconfig:   - 85 15
-# description: uWSGI is a program to run applications adhering to the
-#              Web Server Gateway Interface.
-# processname: uwsgi
-# config:      /etc/sysconfig/uwsgi
+# description: carbon-cache accepts graphite metrics and writes them to
+#              disk using whisper
+# processname: carbon-cache.py
+# config:      /etc/sysconfig/carbon-cache
 
 # Source function library.
 . /etc/rc.d/init.d/functions
