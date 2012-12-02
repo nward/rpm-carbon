@@ -15,7 +15,7 @@ Source3:    carbon-aggregator.init
 Source4:    carbon.conf
 Source5:    carbon-storage-schemas.conf
 Source6:    carbon.logrotate
-Patch0:     %{name}-0.9.9-fhs-compliance.patch
+Patch0:     %{name}-0.9.10-fhs-compliance.patch
 License:    Apache Software License 2.0
 Group:      System Environment/Daemons
 BuildArch:  noarch
@@ -129,7 +129,6 @@ fi
 %{python_sitelib}/%{name}/aggregator/*.pyo
 %attr(0755,graphite,graphite) %{_localstatedir}/lib/carbon
 %attr(0755,graphite,graphite) %{_localstatedir}/log/carbon
-%attr(0755,graphite,graphite) %{_localstatedir}/log/carbon/carbon-cache
 %attr(0755,graphite,graphite) %{_localstatedir}/run/carbon
 
 # This is questionable and should probably be split into another package
