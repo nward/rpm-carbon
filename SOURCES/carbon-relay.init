@@ -6,7 +6,7 @@
 # description: carbon-relay provides replication and/or sharding services
 #              for carbon-cache
 # processname: carbon-relay.py
-# config:      /etc/sysconfig/carbon-relay#!/bin/bash
+# config:      /etc/sysconfig/carbon-relay
 
 # Source function library.
 . /etc/rc.d/init.d/functions
