@@ -7,7 +7,7 @@
 Summary:    Backend data caching and persistence daemon for Graphite
 Name:       carbon
 Version:    0.9.10
-Release:    1%{?dist}
+Release:    2%{?dist}
 Source0:    %{name}-%{version}.tar.gz
 Source1:    carbon-cache.init
 Source2:    carbon-relay.init
@@ -143,6 +143,11 @@ fi
 %{python_sitelib}/twisted/plugins/carbon_relay_plugin.pyo
 
 %changelog
+* Sun Dec 02 2012 Nathan Ward <nward@braintrust.co.nz> - 0.9.10-2
+- Merged in patches from https://github.com/jgoldschrafe/rpm-carbon/pull/2 and 
+  https://github.com/jgoldschrafe/rpm-carbon/pull/1
+- Minor other fixes
+
 * Tue Jul 10 2012 Jeff Goldschrafe <jeff@holyhandgrenade.org> - 0.9.10-1
 - Update to version 0.9.10
 - Move /etc/graphite and /var/lib/graphite to preferred /etc/carbon and
